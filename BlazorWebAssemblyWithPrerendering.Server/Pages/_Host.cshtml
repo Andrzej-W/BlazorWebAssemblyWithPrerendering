@@ -2,6 +2,8 @@
 @namespace BlazorWebAssemblyWithPrerendering.Pages
 @using BlazorWebAssemblyWithPrerendering.Client
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor ctx
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +16,18 @@
     <link href="css/site.css" rel="stylesheet" />
 </head>
 <body>
-    <app>@(await Html.RenderComponentAsync<App>(RenderMode.Static))</app>
+    <cache expires-after="@TimeSpan.FromSeconds(60)" vary-by="@ctx.HttpContext.Request.Path">
+        <app>
+            @if (ctx.HttpContext.Request.Path.StartsWithSegments(new PathString("/counter")))
+            {
+                <h1>Loading app without prerendering - cached @DateTime.Now</h1>
+            }
+            else
+            {
+                @(await Html.RenderComponentAsync<App>(RenderMode.Static))
+            }
+        </app>
+    </cache>
 
     <script src="_framework/blazor.webassembly.js"></script>
 </body>

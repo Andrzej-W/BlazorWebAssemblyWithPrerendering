@@ -22,6 +22,7 @@ namespace BlazorWebAssemblyWithPrerendering.Server
                     new[] { "application/octet-stream" });
             });
             services.AddSingleton<IWeatherForecastService, WeatherForecastService>();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
