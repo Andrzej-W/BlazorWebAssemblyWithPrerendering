@@ -22,6 +22,7 @@ namespace BlazorWebAssemblyWithPrerendering.Server
                     new[] { "application/octet-stream" });
             });
             services.AddSingleton<IWeatherForecastService, WeatherForecastService>();
+            services.AddSingleton<IPrerenderingService, PrerenderingService>();
             services.AddHttpContextAccessor();
         }
 

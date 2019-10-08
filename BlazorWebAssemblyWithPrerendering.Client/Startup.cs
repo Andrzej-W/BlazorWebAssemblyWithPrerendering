@@ -9,6 +9,7 @@ namespace BlazorWebAssemblyWithPrerendering.Client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IWeatherForecastService, HttpWeatherForecastService>();
+            services.AddSingleton<IPrerenderingService, WasmPrerenderingService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
