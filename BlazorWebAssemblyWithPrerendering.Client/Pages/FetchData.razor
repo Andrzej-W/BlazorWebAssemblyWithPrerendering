@@ -1,5 +1,7 @@
 ﻿@page "/fetchdata"
 @inject IWeatherForecastService WeatherService
+@inject IJSRuntime JSRuntime
+@inject IPrerenderingService Prerendering
 
 <h1>Weather forecast</h1>
 
@@ -39,6 +41,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        if (!Prerendering.IsPrerendering)
+        {
+            IJSInProcessRuntime JS = (IJSInProcessRuntime)JSRuntime;
+            // Get data from HTML and render instead of "Loading...".
+        }
         forecasts = await WeatherService.GetForecastAsync(DateTime.Now);
     }
 }

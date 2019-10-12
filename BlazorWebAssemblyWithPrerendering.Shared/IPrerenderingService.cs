@@ -6,6 +6,7 @@ namespace BlazorWebAssemblyWithPrerendering.Shared
 {
     public interface IPrerenderingService
     {
+        // Alternative to: RuntimeInformation.IsOSPlatform(OSPlatform.Create("WEBASSEMBLY"))
         bool IsPrerendering { get; }
     }
 }
