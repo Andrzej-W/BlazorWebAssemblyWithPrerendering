@@ -7,8 +7,13 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 <div>
-    <input disabled="@Prerendering.IsPrerendering" placeholder="Write somethng..." @bind="TextVar"/>
-    <button disabled="@Prerendering.IsPrerendering" @onclick="ButtonClick">Click the button</button>
+    <input disabled="@Prerendering.IsPrerendering"
+           placeholder="@(Prerendering.IsPrerendering ? "I'm disabled, wait..." : "You can write now!")"
+           @bind="TextVar"/>
+    <button disabled="@Prerendering.IsPrerendering"
+            @onclick="ButtonClick">
+        @(Prerendering.IsPrerendering ? "I'm disabled, wait..." : "Click the button")
+    </button>
 </div>
 
 @if (string.IsNullOrEmpty(DynamicContent))
@@ -51,7 +56,7 @@ else
     const string DynamicContentId = "DynamicContent";
     string DynamicContent = null;
     IEnumerable<WeatherForecast> forecasts;
-    public string TextVar { get; set; }
+    string TextVar { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
