@@ -19,6 +19,7 @@ namespace BlazorWebAssemblyWithPrerendering.Server.Controllers
         private readonly IWeatherForecastService _weatherService;
 
         [HttpGet]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
         public Task<IEnumerable<WeatherForecast>> Get()
         {
             return _weatherService.GetForecastAsync(DateTime.Now);
